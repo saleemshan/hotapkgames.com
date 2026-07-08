@@ -1,0 +1,7 @@
+Pending submissions append to inbox.jsonl when the server can write the project directory (local dev or self-hosted Node).
+
+1. Open data/user-reviews/pending/inbox.jsonl (if present).
+2. Pick a line (JSON). Copy the fields into data/user-reviews/approved/{game-slug}.json as a new array entry (or create the array file).
+3. Remove the line from inbox.jsonl. Commit and deploy.
+
+On read-only serverless hosts, inbox.jsonl may stay empty — approve by editing approved/*.json directly in git.
