@@ -102,7 +102,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     url: `${base}${g.url}`,
     lastModified: new Date(g.updatedAt),
     changeFrequency: "weekly" as const,
-    priority: 0.8,
+    priority: 0.9,
   }));
 
   const guideRoutes = guides.map((g) => ({
