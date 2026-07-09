@@ -24,6 +24,7 @@ import { GameGrid } from "@/components/game/GameGrid";
 import { FAQSchema } from "@/components/seo/FAQSchema";
 import { JsonLd } from "@/components/seo/JsonLd";
 import {
+  getAllGames,
   getFeaturedGames,
   getGamesByCategory,
   getLatestGames,
@@ -43,37 +44,32 @@ const homeFAQs = [
   {
     question: "What are earning games?",
     answer:
-      "Earning games are mobile applications that allow users to earn real money by playing games, completing tasks, or participating in activities. These apps are popular in Pakistan and support payment methods like JazzCash and Easypaisa.",
+      "Apps where you play games to earn money, supporting EasyPaisa and JazzCash withdrawals in Pakistan.",
   },
   {
     question: "Are APK downloads safe?",
     answer:
-      "APK files downloaded from trusted sources are generally safe. We verify every APK listed on our site for malware and security issues. Always download from official links and avoid unknown third-party sources.",
+      "Yes, if downloaded from verified official mirrors. We scan all listed APKs for safety.",
   },
   {
-    question: "How do I install an APK on Android?",
+    question: "How to install an APK?",
     answer:
-      "Go to Settings > Security > Unknown Sources and enable it. Download the APK file, open your file manager, locate the downloaded file, and tap to install. Follow the on-screen instructions to complete installation.",
+      "Enable 'Unknown Sources' in Android settings, open the downloaded APK file, and tap install.",
   },
   {
-    question: "Can I earn real money from these apps?",
+    question: "Can I withdraw real money?",
     answer:
-      "Yes, many apps listed on our site allow you to earn real money. Earnings vary based on the app, your activity level, and the games you play. Most apps support withdrawals via JazzCash, Easypaisa, or bank transfer.",
+      "Yes, you can transfer your winnings directly to your local EasyPaisa or JazzCash account.",
   },
   {
-    question: "Which payment methods are supported?",
+    question: "Which wallets are supported?",
     answer:
-      "Most earning games and casino apps in Pakistan support JazzCash, Easypaisa, bank transfers, and some support cryptocurrency (USDT). Check each app's detail page for specific payment methods.",
+      "EasyPaisa and JazzCash are the primary mobile wallet methods supported in Pakistan.",
   },
   {
-    question: "Are casino games legal in Pakistan?",
+    question: "Are these apps legal?",
     answer:
-      "The legal status of online casino games in Pakistan is complex. While there are no specific laws banning online gaming apps, users should exercise caution and understand the risks. Our site provides information for educational purposes.",
-  },
-  {
-    question: "Do I need an internet connection to play?",
-    answer:
-      "Most earning and casino games require a stable internet connection (3G, 4G, or Wi-Fi) to function properly. Some apps may offer limited offline features, but real-money features always require internet access.",
+      "They operate in a legal grey zone in Pakistan. Play responsibly with disposable funds.",
   },
 ];
 
@@ -434,14 +430,8 @@ function PopularKeywords() {
   );
 }
 
-function InterlinksFooter() {
-  const links = [
-    { label: "9999 Win Game", href: "/9999win-game" },
-    { label: "P999 Game", href: "/p999-game" },
-    { label: "5555 Bet Game", href: "/5555bet-game" },
-    { label: "OKPKR Game", href: "/okpkr-game" },
-    { label: "Done 999 Game", href: "/done999-game" },
-  ];
+async function InterlinksFooter() {
+  const games = await getAllGames();
 
   return (
     <section className="rounded-xl border border-border bg-card p-6">
@@ -449,14 +439,14 @@ function InterlinksFooter() {
         Download all HotAPK Games APKs — Pakistan 2026
       </h2>
       <div className="grid gap-2 sm:grid-cols-2 md:grid-cols-3">
-        {links.map((l) => (
+        {games.map((g) => (
           <Link
-            key={l.href}
-            href={l.href}
+            key={g.slug}
+            href={`/${g.slug}`}
             className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm text-muted-foreground transition-colors hover:bg-primary/5 hover:text-primary"
           >
             <CheckCircle className="h-4 w-4 text-green-500" />
-            {l.label} – Download APK
+            {g.title} – Download APK
           </Link>
         ))}
       </div>
@@ -464,7 +454,7 @@ function InterlinksFooter() {
   );
 }
 
-export default function HomePage() {
+export default async function HomePage() {
   return (
     <>
       <FAQSchema faqs={homeFAQs} pageUrl={absoluteUrl("/")} />
@@ -478,13 +468,11 @@ export default function HomePage() {
             <span className="text-primary">HotAPK Games</span>{" "}
             <span className="text-accent">reviews & downloads</span>
             <span className="mt-2 block text-xl font-semibold text-yellow-400 md:text-2xl">
-            Five verified earning-game APKs for 2026
+              Verified Earning Game APKs & Downloads (2026)
             </span>
           </h1>
           <p className="mx-auto mt-4 max-w-2xl text-lg text-muted-foreground">
-            Independent APK reviews for 9999 Win, P999, 5555 Bet, OKPKR, and
-            Done 999. Safe install checklists with JazzCash and EasyPaisa
-            withdrawal notes—updated daily.
+            Independent APK reviews and safe install checklists for online earning games with EasyPaisa and JazzCash withdrawal notes—updated daily.
           </p>
 
           <form action="/search" className="mx-auto mt-8 flex max-w-lg gap-2">
@@ -520,12 +508,9 @@ export default function HomePage() {
           <p className="leading-relaxed text-muted-foreground">
             <strong className="font-semibold text-foreground">HotAPK Games</strong>
             {" "}
-            is Pakistan&apos;s trusted directory for real-money gaming APKs in
-            2026. We independently review five verified titles — from colour
-            prediction to casino platforms — with install checklists, mirror
-            links, and JazzCash and EasyPaisa withdrawal notes. Browse casino
-            games, colour-prediction apps, and card-room APKs, each with
-            detailed safety reviews and player ratings.
+            is Pakistan&apos;s trusted directory for real-money earning game APKs in 2026. 
+            We provide independent, malware-scanned downloads for color prediction, casino, lottery, and slots platforms. 
+            Check verified install steps, mirror links, and EasyPaisa or JazzCash withdrawal timelines for every game before you play.
           </p>
         </section>
 
