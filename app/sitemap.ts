@@ -115,11 +115,17 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.7,
   }));
 
-  const categories = getAllCategorySlugs().map((c) => ({
-    url: `${base}/categories/${c}`,
-    changeFrequency: "weekly" as const,
-    priority: 0.65,
-  }));
+  // SEO FIX: Use canonical /category/${c} URLs — NOT /categories/${c} which 301-redirects.
+  // Redirect source URLs in a sitemap waste crawl budget and send mixed signals to Google.
+  // These supplement earningCategoryRoutes (which covers the 4 primary earning categories).
+  const categories = getAllCategorySlugs()
+    .filter((c) => !EARNING_CATEGORY_SLUGS.includes(c as (typeof EARNING_CATEGORY_SLUGS)[number]))
+    .map((c) => ({
+      url: `${base}/category/${c}`,
+      lastModified: gamesHubLastModified,
+      changeFrequency: "weekly" as const,
+      priority: 0.65,
+    }));
 
   // SEO FIX: Omit thin tag URLs (noindex in generateMetadata) to avoid sitemap vs robots conflicts.
   const tags = [...getTagSlugMap().keys()]

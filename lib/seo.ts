@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 
-// SEO FIX: Must match the canonical production host (www prefix, .com.pk TLD).
-// If NEXT_PUBLIC_SITE_URL env var is unset, all canonicals, sitemap URLs and OG tags fall back here.
-const PRODUCTION_FALLBACK_ORIGIN = "https://www.hotapkgames.com.pk";
+// SEO FIX: Must match the canonical production host exactly as served.
+// Live site serves https://hotapkgames.com.pk (non-www) — keep in sync with NEXT_PUBLIC_SITE_URL.
+const PRODUCTION_FALLBACK_ORIGIN = "https://hotapkgames.com.pk";
 
 export const siteConfig = {
   name: "HotAPK Games",
