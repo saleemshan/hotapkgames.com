@@ -47,6 +47,12 @@ const nextConfig: NextConfig = {
       source: "/_next/:path*",
       headers: [{ key: "X-Robots-Tag", value: CRAWL_NOINDEX_VALUE }],
     },
+    // SEO FIX: /search removed from robots.txt disallow (must be crawlable for SearchAction JSON-LD).
+    // Excluded from SERP index via X-Robots-Tag header instead.
+    {
+      source: "/search",
+      headers: [{ key: "X-Robots-Tag", value: CRAWL_NOINDEX_VALUE }],
+    },
   ],
   async redirects() {
     return [

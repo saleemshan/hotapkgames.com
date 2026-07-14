@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 
-// SEO FIX: Matches primary content CDN / brand host used in MDX cover images.
-const PRODUCTION_FALLBACK_ORIGIN = "https://hotapkgames.com";
+// SEO FIX: Must match the canonical production host (www prefix, .com.pk TLD).
+// If NEXT_PUBLIC_SITE_URL env var is unset, all canonicals, sitemap URLs and OG tags fall back here.
+const PRODUCTION_FALLBACK_ORIGIN = "https://www.hotapkgames.com.pk";
 
 export const siteConfig = {
   name: "HotAPK Games",

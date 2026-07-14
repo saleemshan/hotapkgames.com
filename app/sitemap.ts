@@ -29,6 +29,9 @@ function latestModified(...dates: (string | Date | null | undefined)[]): Date {
   return times.length ? new Date(Math.max(...times)) : new Date();
 }
 
+/** Stable last-modified date for legal / static pages that rarely change. Update when content is edited. */
+const LEGAL_LAST_MODIFIED = new Date("2026-01-15");
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const base = getSiteUrl();
 
@@ -61,11 +64,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: "weekly",
       priority: 0.85,
     },
-    { url: `${base}/about`, changeFrequency: "yearly", priority: 0.55 },
-    { url: `${base}/contact`, changeFrequency: "yearly", priority: 0.6 },
-    { url: `${base}/disclaimer`, changeFrequency: "yearly", priority: 0.3 },
-    { url: `${base}/privacy-policy`, changeFrequency: "yearly", priority: 0.3 },
-    { url: `${base}/terms`, changeFrequency: "yearly", priority: 0.3 },
+    { url: `${base}/about`,          lastModified: LEGAL_LAST_MODIFIED, changeFrequency: "yearly", priority: 0.55 },
+    { url: `${base}/contact`,         lastModified: LEGAL_LAST_MODIFIED, changeFrequency: "yearly", priority: 0.6 },
+    { url: `${base}/disclaimer`,      lastModified: LEGAL_LAST_MODIFIED, changeFrequency: "yearly", priority: 0.3 },
+    { url: `${base}/privacy-policy`,  lastModified: LEGAL_LAST_MODIFIED, changeFrequency: "yearly", priority: 0.3 },
+    { url: `${base}/terms`,           lastModified: LEGAL_LAST_MODIFIED, changeFrequency: "yearly", priority: 0.3 },
   ];
 
   const earningCategoryRoutes: MetadataRoute.Sitemap = [];
