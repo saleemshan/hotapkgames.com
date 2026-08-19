@@ -229,10 +229,7 @@ async function FeaturedSection() {
 }
 
 async function LatestSection() {
-  const featured = await getFeaturedGames(6);
-  const exclude =
-    featured.length > 0 ? new Set(featured.map((g) => g.slug)) : undefined;
-  const latest = await getLatestGames(12, 0, exclude);
+  const latest = await getLatestGames(12, 0);
   if (latest.length === 0) return null;
 
   return (

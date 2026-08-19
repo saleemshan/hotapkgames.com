@@ -10,10 +10,18 @@ import {
 } from "./remark-mdast-utils";
 
 function isFaqHeading(node: MdastNode): boolean {
-  if (node.type === "heading" && node.depth === 2) {
-    return /^faqs?\b/i.test(headingText(node));
+  if (node.type === "heading") {
+    const text = headingText(node);
+    return (
+      /^(faqs?|frequently\s+asked\s+questions)/i.test(text) ||
+      /\bfaqs?\b/i.test(text) ||
+      /\bfrequently\s+asked\s+questions\b/i.test(text)
+    );
   }
-  return isBoldLabelParagraph(node, /^faqs?\s*$/i);
+  return (
+    isBoldLabelParagraph(node, /^(faqs?|frequently\s+asked\s+questions)/i) ||
+    isBoldLabelParagraph(node, /\bfaqs?\b/i)
+  );
 }
 
 /**
@@ -26,7 +34,7 @@ export const remarkStripEmbeddedFaq: Plugin<[], MdastRoot> = () => (tree, file) 
       (file as { history?: string[] }).history?.[0] ??
       "",
   );
-  if (!isGameOrAppMdxPath(fp)) return;
+  if (fp && !isGameOrAppMdxPath(fp)) return;
 
   const ch = tree.children;
   const out: MdastNode[] = [];
