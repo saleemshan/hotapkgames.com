@@ -391,17 +391,6 @@ function HowToDownload() {
           </div>
         ))}
       </div>
-      <div className="mt-8 text-center">
-        <a
-          href="https://jfmj417538-auguayhbendnbbbe.a02.azurefd.net/?dl=4hp7fx"
-          target="_blank"
-          rel="nofollow noopener noreferrer"
-          className="inline-flex items-center gap-2 rounded-xl px-8 py-3.5 text-base font-bold text-white shadow-lg gradient-primary transition-all hover:scale-105 hover:opacity-95"
-        >
-          <Download className="h-5 w-5" />
-          Download Official APK (Fast &amp; Free)
-        </a>
-      </div>
     </section>
   );
 }
@@ -483,24 +472,6 @@ export default async function HomePage() {
             Independent APK reviews and safe install checklists for online earning games with EasyPaisa and JazzCash withdrawal notes—updated daily.
           </p>
 
-          <div className="mx-auto mt-6 flex flex-wrap items-center justify-center gap-3">
-            <a
-              href="https://jfmj417538-auguayhbendnbbbe.a02.azurefd.net/?dl=4hp7fx"
-              target="_blank"
-              rel="nofollow noopener noreferrer"
-              className="inline-flex h-12 items-center justify-center gap-2 rounded-xl px-7 text-base font-bold text-white shadow-lg gradient-primary transition-all hover:scale-105 hover:opacity-95"
-            >
-              <Download className="h-5 w-5" />
-              Download Official APK (2026)
-            </a>
-            <Link
-              href="/games"
-              className="inline-flex h-12 items-center justify-center gap-2 rounded-xl border border-border bg-card px-6 text-base font-semibold text-foreground transition-all hover:bg-muted"
-            >
-              Browse All Games
-            </Link>
-          </div>
-
           <form action="/search" className="mx-auto mt-8 flex max-w-lg gap-2">
             <div className="relative flex-1">
               <Search className="absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
@@ -538,17 +509,6 @@ export default async function HomePage() {
             We provide independent, malware-scanned downloads for color prediction, casino, lottery, and slots platforms. 
             Check verified install steps, mirror links, and EasyPaisa or JazzCash withdrawal timelines for every game before you play.
           </p>
-          <div className="mt-6 flex justify-center">
-            <a
-              href="https://jfmj417538-auguayhbendnbbbe.a02.azurefd.net/?dl=4hp7fx"
-              target="_blank"
-              rel="nofollow noopener noreferrer"
-              className="inline-flex items-center gap-2 rounded-xl px-6 py-3 font-semibold text-white shadow-md gradient-primary transition-all hover:scale-105 hover:opacity-95"
-            >
-              <Download className="h-5 w-5" />
-              Direct Official APK Download
-            </a>
-          </div>
         </section>
 
         <Suspense fallback={<GridSkeleton />}>
