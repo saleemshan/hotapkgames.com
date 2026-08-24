@@ -7,6 +7,7 @@ import {
   getSiteUrl,
   siteConfig,
 } from "@/lib/seo";
+import { MIN_PUBLIC_AGGREGATE_REVIEWS } from "@/lib/review-display";
 import { toPlainTextForSchema } from "@/lib/plain-text";
 
 const MAX_SCREENSHOTS = 8;
@@ -21,10 +22,10 @@ function toIso(d: string | Date | undefined): string | undefined {
   return new Date(t).toISOString();
 }
 
-function safeRating(n: number): number {
+function clampRating(n: number): number | null {
   const v = Number(n);
-  if (!Number.isFinite(v)) return 4;
-  return Math.min(RATING_MAX, Math.max(RATING_MIN, v));
+  if (!Number.isFinite(v) || v < RATING_MIN) return null;
+  return Math.min(RATING_MAX, v);
 }
 
 type Faq = { question: string; answer: string };
@@ -103,33 +104,41 @@ export function GamePageJsonLd({
     keywordParts.length > 0 ? [...new Set(keywordParts)].join(", ") : undefined;
 
   const voteInt = Math.floor(Number(votes));
-  const listingRating = safeRating(rating);
-  const showAggregate =
-    Number.isFinite(voteInt) && voteInt >= 1 && Number.isFinite(listingRating);
+  const listingRating = clampRating(rating);
+  const showListingAggregate =
+    listingRating != null &&
+    Number.isFinite(voteInt) &&
+    voteInt >= MIN_PUBLIC_AGGREGATE_REVIEWS;
 
   // Reviews are nested under `MobileApplication.review`; do not set `itemReviewed`
   // (Google Search Console: nested parent + itemReviewed = directional conflict).
   const reviewNodes =
     reviews.length > 0
-      ? reviews.slice(0, MAX_REVIEWS).map((r) => ({
-          "@type": "Review" as const,
-          author: {
-            "@type": "Person" as const,
-            name: r.name,
-          },
-          datePublished: r.date,
-          reviewBody: r.comment,
-          reviewRating: {
-            "@type": "Rating" as const,
-            ratingValue: safeRating(r.rating),
-            bestRating: RATING_MAX,
-            worstRating: RATING_MIN,
-          },
-        }))
+      ? reviews.slice(0, MAX_REVIEWS).flatMap((r) => {
+          const rv = clampRating(r.rating);
+          if (rv == null) return [];
+          return [
+            {
+              "@type": "Review" as const,
+              author: {
+                "@type": "Person" as const,
+                name: r.name,
+              },
+              datePublished: r.date,
+              reviewBody: r.comment,
+              reviewRating: {
+                "@type": "Rating" as const,
+                ratingValue: rv,
+                bestRating: RATING_MAX,
+                worstRating: RATING_MIN,
+              },
+            },
+          ];
+        })
       : [];
 
   const mobileApp: Record<string, unknown> = {
-    "@type": "MobileApplication",
+    "@type": ["SoftwareApplication", "MobileApplication"],
     "@id": appId,
     name: title,
     description: desc,
@@ -165,18 +174,16 @@ export function GamePageJsonLd({
   if (published) mobileApp.datePublished = published;
   if (modified) mobileApp.dateModified = modified;
   if (keywords) mobileApp.keywords = keywords;
-  // GSC FIX: Google requires `aggregateRating` whenever `review` is present.
-  // Use listing rating/votes when available; fall back to computing from reviews.
-  if (showAggregate) {
+  // Only mark up aggregates when the listing has enough genuine votes or reviews.
+  if (showListingAggregate && listingRating != null) {
     mobileApp.aggregateRating = {
       "@type": "AggregateRating",
       ratingValue: Math.round(listingRating * 10) / 10,
-      ratingCount: Math.max(1, voteInt),
+      ratingCount: voteInt,
       bestRating: RATING_MAX,
       worstRating: RATING_MIN,
     };
-  } else if (reviewNodes.length > 0) {
-    // Compute aggregateRating from the review nodes themselves.
+  } else if (reviewNodes.length >= MIN_PUBLIC_AGGREGATE_REVIEWS) {
     const reviewRatings = reviewNodes.map(
       (r) => (r.reviewRating as { ratingValue: number }).ratingValue,
     );
@@ -190,7 +197,7 @@ export function GamePageJsonLd({
       worstRating: RATING_MIN,
     };
   }
-  if (reviewNodes.length) {
+  if (reviewNodes.length >= MIN_PUBLIC_AGGREGATE_REVIEWS) {
     mobileApp.review = reviewNodes;
   }
   if (downloadUrl?.startsWith("http")) {

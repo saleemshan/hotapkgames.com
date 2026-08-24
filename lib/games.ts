@@ -14,6 +14,8 @@ export type GameCategory = ContentGame["category"];
 export interface Game {
   slug: string;
   title: string;
+  /** Hero H1; falls back to `title` when unset. */
+  heading: string | null;
   description: string | null;
   version: string | null;
   fileSize: string | null;
@@ -42,6 +44,7 @@ function mapClCategoryToGameCategory(c: ContentGame["category"]): GameCategory {
 
 function parseDownloadCount(downloads: string, views: number): number {
   const d = downloads.trim();
+  if (!d || /^unverified$/i.test(d) || /^n\/?a$/i.test(d)) return 0;
   const km = d.match(/^([\d.]+)\s*([kKmM])?\+?$/i);
   if (km) {
     let n = parseFloat(km[1]);
@@ -60,6 +63,7 @@ export function contentGameToEarningGame(g: ContentGame): Game {
   return {
     slug: g.slug,
     title: g.title,
+    heading: (g as ContentGame & { heading?: string }).heading?.trim() || null,
     description: g.shortDescription || null,
     version: g.version || null,
     fileSize: g.size ? formatFileSizeDisplay(g.size) : null,

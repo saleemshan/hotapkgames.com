@@ -38,12 +38,26 @@ type GameMetaFields = {
   body?: { raw: string };
 };
 
-export function buildGameMetaTitle(game: GameMetaFields): string {
-  const y = getMetadataYear();
-  return `${game.title} APK Download Pakistan ${y} — Review & Install Guide`;
+/** True when the listing title already includes the Pakistan APK-download year phrase. */
+export function titleAlreadyHasPakistanApkYear(title: string, year: number): boolean {
+  return (
+    /apk\s+download/i.test(title) &&
+    /pakistan/i.test(title) &&
+    title.includes(String(year))
+  );
+}
+
+export function buildGameMetaTitle(game: GameMetaFields, now = new Date()): string {
+  const y = getMetadataYear(now);
+  const t = game.title.trim();
+  if (titleAlreadyHasPakistanApkYear(t, y)) return t;
+  return `${t} APK Download Pakistan ${y} — Review & Install Guide`;
 }
 
 export function buildGameMetaDescription(game: GameMetaFields): string {
+  const editorial = game.description?.trim() ?? "";
+  if (editorial.length >= 70 && editorial.length <= 160) return editorial;
+
   const raw = `${game.shortDescription}\n${game.description}\n${game.body?.raw ?? ""}`;
   const wallets = textMentionsPakistanWallets(raw);
   const cat =

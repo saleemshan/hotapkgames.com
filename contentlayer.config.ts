@@ -118,6 +118,8 @@ export const Game = defineDocumentType(() => ({
   contentType: "mdx",
   fields: {
     title: { type: "string", required: true },
+    /** Optional H1; when omitted the hero uses `title`. Keep different from the SERP title. */
+    heading: { type: "string", required: false },
     slug: { type: "string", required: true },
     shortDescription: { type: "string", required: true },
     description: { type: "string", required: true },

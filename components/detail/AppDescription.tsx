@@ -1,6 +1,8 @@
 import path from "node:path";
 
 import { MDXRemote } from "next-mdx-remote/rsc";
+import type { MDXComponents } from "mdx/types";
+import rehypeSlug from "rehype-slug";
 import remarkGfm from "remark-gfm";
 
 import { mdxDetailComponents } from "@/components/mdx/mdx-detail-components";
@@ -16,6 +18,7 @@ type AppDescriptionProps = {
    * and we enable GFM tables + the same strip rules as `contentlayer.config.ts`.
    */
   contentFileId?: string;
+  extraComponents?: MDXComponents;
 };
 
 /**
@@ -28,7 +31,11 @@ const detailRemarkPlugins = [
   remarkStripEmbeddedFaq,
 ];
 
-export async function AppDescription({ raw, contentFileId }: AppDescriptionProps) {
+export async function AppDescription({
+  raw,
+  contentFileId,
+  extraComponents,
+}: AppDescriptionProps) {
   const source =
     contentFileId != null && contentFileId.length > 0
       ? {
@@ -39,13 +46,15 @@ export async function AppDescription({ raw, contentFileId }: AppDescriptionProps
 
   const content = await MDXRemote({
     source,
-    components: mdxDetailComponents,
+    components: { ...mdxDetailComponents, ...extraComponents },
     options: {
       mdxOptions: {
         remarkPlugins: detailRemarkPlugins,
+        rehypePlugins: [rehypeSlug],
       },
     },
   });
 
   return <div className={detailMdxClassName}>{content}</div>;
 }
+

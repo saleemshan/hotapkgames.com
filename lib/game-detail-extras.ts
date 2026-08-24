@@ -25,9 +25,9 @@ function pick<T>(slug: string, salt: string, arr: readonly T[]): T {
   return arr[hashString(slug + salt) % arr.length];
 }
 
-/** `major.minor.patch` only — anything else (e.g. "varies by mirror") must not reach semver math. */
+/** `major.minor` or `major.minor.patch` — anything else (e.g. "varies by mirror") must not reach semver math. */
 function looksLikeSemverVersion(v: string): boolean {
-  return /^\s*v?\d+\.\d+\.\d+\s*$/i.test(v.trim());
+  return /^\s*v?\d+\.\d+(?:\.\d+)?\s*$/i.test(v.trim());
 }
 
 /** Treat as placeholder so we substitute a realistic build string for crawlers. */

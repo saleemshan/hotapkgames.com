@@ -60,4 +60,5 @@ function MdxImg({ src, alt, width, height, title }: MdxImgProps) {
 export const mdxDetailComponents = {
   table: Table,
   img: MdxImg as MDXComponents["img"],
+  DownloadCta: () => null,
 } satisfies MDXComponents;

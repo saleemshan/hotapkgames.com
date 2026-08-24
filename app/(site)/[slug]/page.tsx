@@ -6,8 +6,11 @@ import { AppDescription } from "@/components/detail/AppDescription";
 import { DetailPageOutline } from "@/components/detail/DetailPageOutline";
 import { DownloadMirrorLinks } from "@/components/detail/DownloadMirrorLinks";
 import { FAQSection } from "@/components/detail/FAQSection";
+import { ScreenshotGallery } from "@/components/detail/ScreenshotGallery";
 import { TagList } from "@/components/detail/TagList";
 import { GameHero } from "@/components/game/GameHero";
+import { GameRiskNotice } from "@/components/game/GameRiskNotice";
+import { InArticleDownloadCta } from "@/components/game/InArticleDownloadCta";
 import { DownloadButton } from "@/components/game/DownloadButton";
 import { RelatedGames } from "@/components/game/RelatedGames";
 import { ReportModal } from "@/components/game/ReportModal";
@@ -31,6 +34,7 @@ import {
 } from "@/lib/content";
 import { getPrimaryDownloadUrl } from "@/lib/download-links";
 import { resolveGameDetailExtras } from "@/lib/game-detail-extras";
+import { extractMdxH2Outline } from "@/lib/mdx-h2-outline";
 import { getReviewsForGame } from "@/lib/reviews";
 import { formatPkDate } from "@/lib/utils";
 import {
@@ -126,6 +130,7 @@ export default async function RootGameDetailPage({
   earningGame.version = extras.displayVersion;
   earningGame.fileSize = extras.displaySize;
   const downloadHref = getPrimaryDownloadUrl(game.downloadLinks);
+  const articleOutline = extractMdxH2Outline(game.body.raw);
 
   let relatedEarning: EarningGame[] = await getRelatedGamesByTags(
     game.tags,
@@ -173,10 +178,48 @@ export default async function RootGameDetailPage({
 
         <GameHero game={earningGame} />
 
+        <div className="mt-4">
+          <GameRiskNotice />
+        </div>
+
         <div className="mt-8 grid gap-8 lg:grid-cols-[1fr_300px]">
           <div className="min-w-0 space-y-10">
+            {game.screenshots.length > 0 ? (
+              <section id="screenshots" className="scroll-mt-28 space-y-3">
+                <h2 className="font-heading text-2xl font-bold text-foreground">
+                  Screenshots
+                </h2>
+                <ScreenshotGallery
+                  urls={game.screenshots}
+                  productTitle={game.title}
+                />
+              </section>
+            ) : null}
+
             <article id="review" className="min-w-0 scroll-mt-28">
-              <AppDescription raw={game.body.raw} contentFileId={game._id} />
+              <AppDescription
+                raw={game.body.raw}
+                contentFileId={game._id}
+                extraComponents={{
+                  DownloadCta: ({
+                    caption,
+                  }: {
+                    caption?: string;
+                  }) =>
+                    downloadHref ? (
+                      <InArticleDownloadCta
+                        href={downloadHref}
+                        gameName={
+                          ("heading" in game &&
+                          typeof game.heading === "string" &&
+                          game.heading.trim()) ||
+                          game.title
+                        }
+                        caption={caption}
+                      />
+                    ) : null,
+                }}
+              />
             </article>
 
             <section id="reviews" className="scroll-mt-28 space-y-8">
@@ -221,9 +264,10 @@ export default async function RootGameDetailPage({
                 hasRequirements={false}
                 hasVersionHistory={false}
                 hasInstall={false}
-                hasScreenshots={false}
+                hasScreenshots={game.screenshots.length > 0}
                 hasFaq={game.faqs.length > 0}
                 hasDownload={game.downloadLinks.length > 0}
+                extraItems={articleOutline}
               />
               <Suspense
                 fallback={

@@ -58,30 +58,9 @@ function getApprovedSnippetsForHome(max: number): UserReview[] {
   return out;
 }
 
-function getFallbackReviewsForGame(gameTitle: string, date: string): UserReview[] {
-  return [
-    {
-      name: "Reader",
-      city: "Pakistan",
-      rating: 4,
-      date,
-      comment: `Illustrative note about ${gameTitle}: use the version and file size on this listing to spot outdated mirrors—always confirm bonuses and withdrawals on the official app.`,
-      helpful: 8,
-    },
-    {
-      name: "Player",
-      city: "Pakistan",
-      rating: 4,
-      date,
-      comment: `${siteConfig.name} lays out JazzCash / EasyPaisa context and pros/cons without spammy popups—still verify the download link yourself before depositing.`,
-      helpful: 6,
-    },
-  ];
-}
-
 /**
- * MDX `playerReviews` → approved JSON → illustrative fallback so every game page
- * matches home-style UserReviews (static HTML for crawlers).
+ * MDX `playerReviews` → approved JSON. Empty when neither exists — do not invent
+ * placeholder reviews for YMYL game pages.
  */
 export function getReviewsForGame(slug: string): UserReview[] {
   const g = getGameBySlug(slug);
@@ -89,10 +68,7 @@ export function getReviewsForGame(slug: string): UserReview[] {
 
   const mdx = mapMdxReviews(slug);
   const file = loadApprovedFileReviews(slug);
-  const merged = [...mdx, ...file];
-  if (merged.length > 0) return merged;
-
-  return getFallbackReviewsForGame(g.title, g.updatedAt.slice(0, 10));
+  return [...mdx, ...file];
 }
 
 /** Site-wide testimonials for homepage — MDX snippets, then approved JSON, then brand padding. */

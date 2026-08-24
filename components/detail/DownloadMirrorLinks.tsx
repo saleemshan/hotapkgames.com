@@ -5,6 +5,15 @@ import { ExternalLink } from "lucide-react";
 
 import { sendSupabaseEvent } from "@/lib/analytics/track-supabase";
 
+function downloadLabel(url: string, index: number): string {
+  try {
+    const host = new URL(url).hostname.replace(/^www\./, "");
+    return `Download from ${host}`;
+  } catch {
+    return `Download link ${index + 1}`;
+  }
+}
+
 export function DownloadMirrorLinks({ links }: { links: string[] }) {
   if (!links.length) return null;
   return (
@@ -21,7 +30,7 @@ export function DownloadMirrorLinks({ links }: { links: string[] }) {
             }}
             className="flex items-center justify-between gap-3 rounded-xl border border-accent/30 bg-accent-dim/30 px-4 py-3 font-medium text-accent transition hover:bg-accent-dim/50"
           >
-            <span>Mirror {i + 1}</span>
+            <span>{downloadLabel(url, i)}</span>
             <ExternalLink className="size-4 shrink-0" />
           </a>
         </li>

@@ -5,7 +5,9 @@ import { DownloadButton } from "./DownloadButton";
 import { ShareButtons } from "./ShareButtons";
 import { Download, HardDrive, Smartphone } from "lucide-react";
 import type { Game } from "@/lib/games";
+import { MIN_PUBLIC_AGGREGATE_REVIEWS } from "@/lib/review-display";
 import { BASE_URL } from "@/lib/seo";
+import { formatPkDate } from "@/lib/utils";
 
 interface GameHeroProps {
   game: Game;
@@ -13,6 +15,13 @@ interface GameHeroProps {
 
 export function GameHero({ game }: GameHeroProps) {
   const shareUrl = `${BASE_URL}/${game.slug}`;
+  const h1 = game.heading || game.title;
+  const showStars =
+    (game.totalVotes || 0) >= MIN_PUBLIC_AGGREGATE_REVIEWS &&
+    Number(game.rating) > 0;
+  const lastChecked = game.updatedAt
+    ? formatPkDate(game.updatedAt.toISOString())
+    : null;
 
   return (
     <div className="rounded-2xl border border-border bg-card p-4 sm:p-6 md:p-8">
@@ -21,7 +30,7 @@ export function GameHero({ game }: GameHeroProps) {
           {game.iconUrl ? (
             <Image
               src={game.iconUrl}
-              alt={`${game.title} APK download icon`}
+              alt={`${h1} APK download icon`}
               fill
               className="object-cover"
               sizes="(max-width: 768px) 96px, 128px"
@@ -29,36 +38,49 @@ export function GameHero({ game }: GameHeroProps) {
             />
           ) : (
             <div className="flex h-full w-full items-center justify-center gradient-primary text-4xl font-bold text-white">
-              {game.title.charAt(0)}
+              {h1.charAt(0)}
             </div>
           )}
         </div>
 
         <div className="min-w-0 flex-1 space-y-3 text-center md:text-left">
-          <div className="flex flex-wrap items-center justify-center gap-2 md:justify-start">
-            <h1 className="font-heading text-xl font-bold leading-tight text-balance sm:text-2xl md:text-3xl wrap-break-word">
-              {game.title}
+          <div className="space-y-2">
+            <h1 className="font-heading text-2xl font-bold leading-snug tracking-tight text-foreground sm:text-3xl md:text-4xl">
+              {h1}
             </h1>
-            <VersionBadge
-              isNew={game.isNew}
-              isUpdated={game.isUpdated}
-              isFeatured={game.isFeatured}
-            />
+            <div className="flex flex-wrap items-center justify-center gap-2 md:justify-start">
+              <VersionBadge
+                isNew={game.isNew}
+                isUpdated={game.isUpdated}
+                isFeatured={game.isFeatured}
+              />
+            </div>
           </div>
 
-          <div className="flex justify-center md:justify-start">
-            <RatingStars
-              rating={Number(game.rating) || 0}
-              votes={game.totalVotes || 0}
-              size="md"
-            />
-          </div>
+          {lastChecked ? (
+            <p className="text-sm text-muted-foreground">
+              Last checked:{" "}
+              <time dateTime={game.updatedAt?.toISOString()}>{lastChecked}</time>
+            </p>
+          ) : null}
+
+          {showStars ? (
+            <div className="flex justify-center md:justify-start">
+              <RatingStars
+                rating={Number(game.rating) || 0}
+                votes={game.totalVotes || 0}
+                size="md"
+              />
+            </div>
+          ) : null}
 
           <div className="flex flex-wrap justify-center gap-x-4 gap-y-2 text-xs sm:text-sm text-muted-foreground md:justify-start">
-            <span className="inline-flex items-center gap-1.5 whitespace-nowrap">
-              <Download className="h-4 w-4 shrink-0" aria-hidden="true" />
-              {(game.downloadCount || 0).toLocaleString()} downloads
-            </span>
+            {game.downloadCount > 0 ? (
+              <span className="inline-flex items-center gap-1.5 whitespace-nowrap">
+                <Download className="h-4 w-4 shrink-0" aria-hidden="true" />
+                {game.downloadCount.toLocaleString()} downloads
+              </span>
+            ) : null}
             <span className="inline-flex items-center gap-1.5 whitespace-nowrap">
               <HardDrive className="h-4 w-4 shrink-0" aria-hidden="true" />
               {game.fileSize}
