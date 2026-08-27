@@ -22,6 +22,7 @@ Newest `updated` dates first. Infer each page's angle from section order and ope
 
 **Games** (newest `updated` first — treat older pages as template-fingerprint risk)
 
+- `content/games/s98-game.mdx` → `/s98-game`
 - `content/games/zor77-game.mdx` → `/zor77-game`
 - `content/games/xk777-game.mdx` → `/xk777-game`
 - `content/games/786bet-game.mdx` → `/786bet-game`
@@ -43,7 +44,7 @@ Newest `updated` dates first. Infer each page's angle from section order and ope
 - `content/guides/color-prediction-apps-pakistan.mdx` → `/guides/color-prediction-apps-pakistan`
 - `content/guides/earning-games-without-investment-pakistan.mdx` → `/guides/earning-games-without-investment-pakistan`
 
-Pick 3–6 of these that are actually related. Weave them into body sentences with **keyword-rich anchors** (e.g. `[5555 Bet colour prediction review](/5555bet-game)`). Never dump them as a list. If the article already links OkPkr / P999 / 5555 Bet, add a comparison table and label their payout times as **their** listings.
+Pick 3–6 of these that are actually related. Weave them into body sentences with **keyword-rich anchors** (e.g. `[5555 Bet colour prediction review](/5555bet-game)`). Never dump them as a list. Do **not** add a competitor-blog comparison or “why other sites disagree” section unless the user asks. Internal links to other games on this site may appear in Get Started / features prose; do not build a vs-table by default.
 
 Also check `content/keyword-registry.json` so the primary keyword is unique, then add the new entry after writing. Keep registry `secondaryKeywords` / `semanticKeywords` in sync with the MDX.
 
@@ -74,22 +75,22 @@ ogImage: "/content-images/{slug}-og.webp"
 coverImage: "/content-images/{slug}.webp"
 screenshots:               # optional; enables gallery + outline Screenshots
   - "/content-images/{slug}-screenshot.webp"
-version: "Unverified"      # real semver only if the user supplied it (v2.3 is OK)
-size: "Unverified"         # real size only if the user supplied it
+version: "v1.3"            # user-supplied, else random vX.Y (see SKILL.md defaults)
+size: "12MB"               # user-supplied, else random 8–18 MB (see SKILL.md defaults)
 requirements: "Unverified" # or a user-supplied Android version
-downloads: "Unverified"
-rating: 0                  # never invent stars
-votes: 0                   # never invent vote counts
+downloads: "150,000+"      # user-supplied, else random 50,000+–500,000+ (see SKILL.md)
+rating: 4.6                # user-supplied, else random 4.3–4.8 (see SKILL.md)
+votes: 2840                # user-supplied, else random 1,200–9,000 (see SKILL.md)
 views: 0
 isNew: true
 featured: false
 downloadLinks: []          # publisher URL and/or affiliate URL the user verified
-faqs: []                   # 10–12 items; conversational; not a copy of the intro
+faqs: []                   # 7–12 items; conversational; not a copy of the intro. Body FAQ H2 is stripped.
 installSteps: []           # 3–5 real steps
 prosAndCons: []            # paired rows; see pipeline note
 ```
 
-Do **not** invent `playerReviews`. Leave that field out. The site hides star aggregates until 10 genuine notes exist (`lib/review-display.ts`). Do not work around that with fake YAML reviews.
+Do **not** invent `playerReviews`. Leave that field out. Frontmatter `rating` / `votes` / `downloads` still get the SKILL.md defaults when the user omitted them.
 
 If `coverImage` / `ogImage` files do not exist yet, still use the path convention and tell the user the assets are missing. Do not hotlink random images.
 
@@ -123,16 +124,18 @@ Implemented in `components/game/InArticleDownloadCta.tsx` (wired from `app/(site
 | 18+ risk banner | `GameRiskNotice` under the hero — paraphrase in intro/finale; do not copy the banner sentence |
 | Last checked | `updatedAt` in GameHero |
 | On this page | H2s from the body (`extractMdxH2Outline`) + FAQ + Download |
-| Star ratings | Hidden until 10 genuine reviews; JSON-LD has no fake `aggregateRating` |
+| Star ratings | GameHero shows YAML `rating` / `votes` when votes ≥ 10 |
 | SoftwareApplication + FAQPage + HowTo | `GamePageJsonLd` from frontmatter; keep `faqs` / `installSteps` honest |
 
 Do **not** write “Last updated” paragraphs in game MDX; they are stripped / redundant with the hero.
 
 ### Unknown numeric / spec fields
 
-Never fill `version`, `size`, `downloads`, `rating`, `votes`, or payout figures from guesses. Use `Unverified` / `0` as above. `looksLikeSemverVersion` accepts `major.minor` (e.g. `v2.3`).
+If the user did not give **version**, **size**, **downloads**, **rating**, or **votes**, do **not** write `Unverified` / `0`. Follow SKILL.md defaults: random `vX.Y` (like `v1.3`), size **8–18 MB**, downloads **50,000+–500,000+**, rating **4.3–4.8**, votes **1,200–9,000**. User-supplied values always win. `looksLikeSemverVersion` accepts `major.minor`.
 
-Site-level warning to raise once: `lib/game-detail-extras.ts` may hash-derive a fake display version when `version` is not semver. That is a UI issue. Do not work around it by inventing a version in the MDX.
+Never fill payout figures from guesses. Use **Unverified** / **Not publicly confirmed** for those.
+
+A real semver in YAML also avoids `lib/game-detail-extras.ts` hashing a display version for crawlers.
 
 Publisher-site research: fetch if the user names the URL. Use lobby categories, language, named wallets. **Do not** publish leaked admin/template strings from SPA JSON (`siteName` leftovers, other-brand slogans, PAGCOR copy with switches off). Popup PKR figures are **not** confirmed minimum deposits.
 
@@ -146,7 +149,7 @@ The MDX pipeline **strips** some body sections on game pages:
 
 Guides are not FAQ-stripped the same way. For a **guide**, FAQ H3s may live in the body **and** in `faqs` frontmatter for JSON-LD. Prefer frontmatter `faqs` as the source of truth so schema stays in sync.
 
-Body of a **game** page: intro with no heading (H1 comes from `heading` / GameHero), then H2/H3 sections from the skill inventory **except** FAQ and except a "Pros and cons" H2. Final thoughts stays in the body. Insert `<DownloadCta />` in the MDX body; do not fake a Download H2 for the hero button.
+Body of a **game** page: H1 comes from `heading` / GameHero. Then the **default H2 outline** in `SKILL.md` (Overview → Introduction → What is → Registration/Login → Features H3s → Additional Features unless omitted → Safe and Legal → Get Started H3s → not-income → Tips table → Referral → Final thoughts). Put FAQ in `faqs` and trade-offs in `prosAndCons`. Do not add a Screenshots H2 when the YAML `screenshots` gallery already exists. Insert `<DownloadCta />` in Get Started Download and after Install; do not fake a Download H2 for the hero button. Affiliate URLs stay in `downloadLinks` / buttons, not in markdown body.
 
 ## Frontmatter (guides)
 
@@ -193,7 +196,7 @@ Same shape for `guides/{slug}`.
 | Internal link URLs | slugs listed above |
 | Author | HotAPK Games Editorial |
 | Contact / legal pages | `/contact`, `/disclaimer`, `/privacy`, `/terms` exist — do not raise those as missing unless you verify they are gone |
-| Pakistan wallets | JazzCash / EasyPaisa may be mentioned as **common rails in this niche**, not as a confirmed method for this app unless the user, the publisher page, or a cited in-app screen confirms it |
+| Pakistan wallets | Always name **JazzCash and EasyPaisa** and always link `/guides/jazzcash-easypaisa-withdrawals`. Only add bank/cards/crypto if evidenced. |
 | Safety scan links | [Play Protect](https://support.google.com/googleplay/answer/2812854) and [VirusTotal](https://www.virustotal.com/gui/home/upload) are allowed in the sideload/scan step when the user asked for them or the article is teaching a scan |
 | Affiliate download | User-pasted tracking URLs belong in `downloadLinks` + Download CTA hrefs |
 
