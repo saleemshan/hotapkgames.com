@@ -7,12 +7,13 @@ description: Writes original, helpful MDX game/APK guides for hotapkgames.com wi
 
 Produce a publish-ready **how-to guide** in this repo. Not a promotional review. Not a copy of another site.
 
-Read [project.md](project.md) before drafting. It has file paths, MDX frontmatter, pipeline rules, and the live article inventory.
+Read [project.md](project.md) before drafting. It has file paths, MDX frontmatter, pipeline rules, and the live article inventory. Before writing, also consult [`seo/google-search-updates.md`](../../../seo/google-search-updates.md).
 
 ## Project workflow
 
 ```
 Task Progress:
+- [ ] Consult seo/google-search-updates.md (quality/risk context, not ranking-factor recipes)
 - [ ] Read ≥3 existing articles (vary openings, examples, verified facts)
 - [ ] ≥3 app-specific facts found (or flagged to the user)
 - [ ] Inputs collected (name, keyword, download URL, wallets, screenshots)
@@ -113,6 +114,46 @@ Primary keyword naturally in H1, introduction, 2–3 relevant H2s, body, and con
 User may prefer about **1%** density. Natural language always wins. If hitting a count would sound stuffed, use fewer. Never two primary-keyword hits in one sentence. Never list keywords.
 
 Semantic / long-tail examples (use only where they fit): GAME_NAME APK, download, login, registration, lottery app, real money app, earning game, new earning app, earning app in Pakistan, online earning, make money online, earn money online, Android gaming app. When writing about chance games, do not treat those “earn” phrases as a promise of income.
+
+Semantic keywords must never override search intent or factual accuracy. Do not include a semantic keyword merely because it has search volume. If a keyword implies guaranteed income, winnings, safety, legality, or performance that cannot be supported by evidence, rewrite the sentence or omit the keyword.
+
+---
+
+## Google Search algorithm and quality guidance
+
+Before writing or substantially editing an article, consult the current Google Search guidance and documented ranking-system updates in [`seo/google-search-updates.md`](../../../seo/google-search-updates.md). Use them as **quality and risk context**, not as a list of ranking factors. Never infer an unsupported ranking factor from an algorithm update.
+
+Important rules:
+
+1. Treat Google algorithm updates as context, not as simple ranking-factor checklists.
+2. Do not assume that a core update means a specific keyword, word count, heading count, or SEO technique should be added.
+3. Prioritize Google's documented principles:
+   - Helpful, reliable, people-first content
+   - Original information and analysis
+   - Clear authorship and source transparency where appropriate
+   - Strong page experience and usability
+   - Accurate, non-misleading claims
+   - Appropriate internal linking
+   - Avoidance of manipulative or spammy practices
+4. Do not write content primarily to attract search-engine traffic.
+5. Do not create multiple near-identical pages targeting slightly different keywords.
+6. Do not increase article length simply to appear more comprehensive.
+7. Do not add keywords unnaturally because an algorithm update mentions relevance.
+8. Do not interpret correlation-based SEO advice as an official Google ranking factor.
+9. When Google guidance conflicts with an instruction elsewhere in this skill, flag the conflict and follow the safer, evidence-based approach.
+10. Algorithm-update dates and descriptions must come from Google's official sources or clearly identified reliable sources. Never invent an update, ranking factor, or Google statement.
+
+### Algorithm update handling
+
+`seo/google-search-updates.md` is a historical and current-reference document.
+
+For every new article:
+
+- Check whether there are recent Google Search updates relevant to content quality, spam, helpfulness, structured data, or search presentation.
+- Apply the underlying quality principles rather than attempting to "optimize for" an individual update.
+- Do not mention algorithm updates in the article unless the user's search intent specifically requires it.
+- Never claim that an article will rank because it follows an algorithm update.
+- Never claim that a particular Google update caused a specific ranking change without evidence.
 
 ---
 
@@ -269,6 +310,10 @@ Fix failures silently.
 | Download URL | Buttons/`downloadLinks` only |
 | CTAs | Two `<DownloadCta />` captions differ |
 | Schema | No pasted JSON-LD; no fake Review nodes / `playerReviews` |
+| Google guidance | Current Google guidance considered; no unsupported ranking-factor claims |
+| Search updates | Updates treated as context, not as keyword/ranking-factor recipes |
+| People-first | Article provides value beyond keyword targeting |
+| Scaled content | Article is meaningfully differentiated from existing site content |
 
 ## Output
 

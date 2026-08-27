@@ -16,6 +16,10 @@ Slug pattern for games: `{appname}-game` in lowercase, digits kept (example: `78
 
 Do not create `content/_template.mdx` clones. Do not run `scripts/new-blog.mjs`.
 
+## Google Search guidance
+
+Before writing or substantially editing, read `seo/google-search-updates.md` at the repo root. Use it as quality and risk context, not as a ranking-factor checklist. Never infer an unsupported ranking factor from an algorithm update. Do not mention named updates in article body unless the user’s search intent requires it.
+
 ## Existing articles (read ≥3 before drafting)
 
 Newest `updated` dates first. Infer each page's angle from section order and opening — most current game pages share a similar review outline, so treat them as **template-fingerprint risk**. Do not copy their H2 sequence, title formula, or sentence openings.
@@ -203,6 +207,6 @@ Same shape for `guides/{slug}`.
 
 ## YMYL on this domain
 
-This site is an Android APK directory, so topic match is fine. Still raise: publishing many new game pages in one burst; thin near-duplicates already in `content/games/`.
+This site is an Android APK directory, so topic match is fine. Still raise: publishing many new game pages in one burst; thin near-duplicates already in `content/games/`. Google treats money/gambling-adjacent pages as higher-stakes for trustworthiness — keep claims evidenced, and use `seo/google-search-updates.md` when judging scaled-content or doorway risk.
 
 Do not copy min-deposit, version, or size from a similarly named product (786 Game vs 786BET). Spec boxes on aggregator blogs that disagree with a file you opened stay in “why blogs disagree,” not in `version` / `size`.
