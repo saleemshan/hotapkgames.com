@@ -9,6 +9,20 @@ import { useState } from "react";
  * use 16/9; otherwise default to 9/16 portrait (most casino app screenshots are phone screens).
  * The Image is `object-contain` inside the box so it never crops awkwardly either way.
  */
+function screenshotAlt(src: string, productTitle: string | undefined, index: number): string {
+  const file = src.split("/").pop()?.replace(/\.[a-z0-9]+$/i, "") ?? "";
+  const token = file.replace(/^[a-z0-9]+-game-?/i, "").toLowerCase();
+  const labels: Record<string, string> = {
+    login: "login screen with phone number field",
+    home: "home screen game grid",
+    loggedin: "logged-in home with balance and deposit badge",
+    promo: "promo events screen",
+    screenshot: "app screenshot",
+  };
+  const label = labels[token] ?? `screenshot ${index + 1}`;
+  return productTitle ? `${productTitle} ${label}` : label;
+}
+
 function aspectFor(src: string): string {
   const lower = src.toLowerCase();
   if (
@@ -49,20 +63,12 @@ export function ScreenshotGallery({
                 setOpen(true);
               }}
               className={`relative ${aspect} w-full overflow-hidden rounded-lg border border-border-subtle bg-bg-deep transition hover:border-accent/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent`}
-              aria-label={
-                productTitle
-                  ? `Open ${productTitle} screenshot ${i + 1}`
-                  : `Open screenshot ${i + 1}`
-              }
+              aria-label={`Open ${screenshotAlt(src, productTitle, i)}`}
             >
               <Image
                 key={`screenshot-img-${i}`}
                 src={src}
-                alt={
-                  productTitle
-                    ? `${productTitle} screenshot ${i + 1}`
-                    : `Screenshot ${i + 1}`
-                }
+                alt={screenshotAlt(src, productTitle, i)}
                 fill
                 className="object-contain"
                 sizes="(max-width:640px) 50vw, 33vw"
@@ -79,11 +85,7 @@ export function ScreenshotGallery({
           <div className="relative aspect-video w-full overflow-hidden rounded-lg bg-black">
             <Image
               src={urls[active] ?? urls[0]}
-              alt={
-                productTitle
-                  ? `${productTitle} screenshot preview`
-                  : "Screenshot preview"
-              }
+              alt={screenshotAlt(urls[active] ?? urls[0], productTitle, active)}
               fill
               className="object-contain"
               sizes="(max-width: 900px) 100vw, 900px"

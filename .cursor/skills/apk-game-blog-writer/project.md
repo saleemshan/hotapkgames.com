@@ -22,6 +22,8 @@ Newest `updated` dates first. Infer each page's angle from section order and ope
 
 **Games** (newest `updated` first — treat older pages as template-fingerprint risk)
 
+- `content/games/p999-game.mdx` → `/p999-game`
+- `content/games/pak14-game.mdx` → `/pak14-game`
 - `content/games/s98-game.mdx` → `/s98-game`
 - `content/games/zor77-game.mdx` → `/zor77-game`
 - `content/games/xk777-game.mdx` → `/xk777-game`
@@ -31,7 +33,6 @@ Newest `updated` dates first. Infer each page's angle from section order and ope
 - `content/games/done999-game.mdx` → `/done999-game`
 - `content/games/3rr-game.mdx` → `/3rr-game`
 - `content/games/xx555-game.mdx` → `/xx555-game`
-- `content/games/p999-game.mdx` → `/p999-game`
 - `content/games/bro444-game.mdx` → `/bro444-game`
 - `content/games/9999win-game.mdx` → `/9999win-game`
 

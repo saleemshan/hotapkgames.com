@@ -57,8 +57,30 @@ function MdxImg({ src, alt, width, height, title }: MdxImgProps) {
   );
 }
 
+function PhoneShot({ src, alt }: { src?: string; alt?: string }) {
+  if (!src) return null;
+  return (
+    <figure className="mdx-phone-shot">
+      <Image
+        src={src}
+        alt={alt ?? ""}
+        width={596}
+        height={1024}
+        sizes="(max-width: 640px) 42vw, 280px"
+        className="mdx-phone-shot__img"
+      />
+    </figure>
+  );
+}
+
+function PhoneShotRow({ children }: { children?: ReactNode }) {
+  return <div className="mdx-phone-shot-row not-prose">{children}</div>;
+}
+
 export const mdxDetailComponents = {
   table: Table,
   img: MdxImg as MDXComponents["img"],
   DownloadCta: () => null,
+  PhoneShot,
+  PhoneShotRow,
 } satisfies MDXComponents;
