@@ -14,7 +14,7 @@ test("game detail has download section", async ({ page }) => {
     waitUntil: "domcontentloaded",
   });
   //test
-  await expect(page.locator("h1").first()).toContainText(/P999/i, {
+  await expect(page.locator("h1").first()).toContainText(/999V/i, {
     timeout: 15_000,
   });
   await page.getByRole("button", { name: /download apk/i }).click();

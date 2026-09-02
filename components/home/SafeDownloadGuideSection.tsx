@@ -19,7 +19,7 @@ export function SafeDownloadGuideSection() {
         </p>
         <p>
           If an offer promises guaranteed returns, treat it as marketing fiction. Cross-check tags
-          like <em>P999</em>, <em>DK 777</em>, and <em>J188</em> here before you commit bank-linked
+          like <em>999V</em>, <em>DK 777</em>, and <em>J188</em> here before you commit bank-linked
           wallets on a single device.
         </p>
       </div>

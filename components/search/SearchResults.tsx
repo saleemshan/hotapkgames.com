@@ -13,7 +13,7 @@ export function SearchResults({ items }: { items: SearchableItem[] }) {
   if (!items.length) {
     return (
       <p className="rounded-xl border border-border bg-card/60 p-8 text-center text-muted-foreground">
-        No results. Try &quot;P999&quot;, &quot;injector&quot;, or &quot;JazzCash&quot;.
+        No results. Try &quot;999V&quot;, &quot;injector&quot;, or &quot;JazzCash&quot;.
       </p>
     );
   }

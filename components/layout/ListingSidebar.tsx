@@ -39,7 +39,7 @@ export function ListingSidebar() {
     meta: `★ ${g.rating.toFixed(1)} · ${g.votes.toLocaleString("en-PK")} votes`,
   }));
 
-  const tagHints = ["P999 Game", "Casino App Pakistan", "APK Download"];
+  const tagHints = ["999V Game", "Casino App Pakistan", "APK Download"];
 
   return (
     <aside className="flex flex-col gap-6">
