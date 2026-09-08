@@ -14,6 +14,7 @@ function screenshotAlt(src: string, productTitle: string | undefined, index: num
   const token = file.replace(/^[a-z0-9]+-game-?/i, "").toLowerCase();
   const labels: Record<string, string> = {
     login: "login screen with phone number field",
+    register: "registration screen with phone and password fields",
     home: "home screen game grid",
     loggedin: "logged-in home with balance and deposit badge",
     promo: "promo events screen",
