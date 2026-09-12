@@ -34,9 +34,9 @@ Newest `updated` dates first. Infer each page's angle from section order and ope
 - `content/games/xk777-game.mdx` → `/xk777-game`
 - `content/games/786bet-game.mdx` → `/786bet-game`
 - `content/games/okpkr-game.mdx` → `/okpkr-game`
-- `content/games/5555bet-game.mdx` → `/5555bet-game`
+- `content/games/5555bet-game.mdx` → `/5555bet-game` (display name **8555 Bet Game**)
 - `content/games/done999-game.mdx` → `/done999-game`
-- `content/games/3rr-game.mdx` → `/3rr-game`
+- `content/games/3rr-game.mdx` → `/3rr-game` (display name **HE786 Game**)
 - `content/games/xx555-game.mdx` → `/xx555-game`
 - `content/games/bro444-game.mdx` → `/bro444-game`
 - `content/games/9999win-game.mdx` → `/9999win-game`
@@ -50,7 +50,7 @@ Newest `updated` dates first. Infer each page's angle from section order and ope
 - `content/guides/color-prediction-apps-pakistan.mdx` → `/guides/color-prediction-apps-pakistan`
 - `content/guides/earning-games-without-investment-pakistan.mdx` → `/guides/earning-games-without-investment-pakistan`
 
-Pick 3–6 of these that are actually related. Weave them into body sentences with **keyword-rich anchors** (e.g. `[5555 Bet colour prediction review](/5555bet-game)`). Never dump them as a list. Do **not** add a competitor-blog comparison or “why other sites disagree” section unless the user asks. Internal links to other games on this site may appear in Get Started / features prose; do not build a vs-table by default.
+Pick 3–6 of these that are actually related. Weave them into body sentences with **keyword-rich anchors** (e.g. `[8555 Bet colour prediction review](/5555bet-game)`). Never dump them as a list. Do **not** add a competitor-blog comparison or “why other sites disagree” section unless the user asks. Internal links to other games on this site may appear in Get Started / features prose; do not build a vs-table by default.
 
 Also check `content/keyword-registry.json` so the primary keyword is unique, then add the new entry after writing. Keep registry `secondaryKeywords` / `semanticKeywords` in sync with the MDX.
 
