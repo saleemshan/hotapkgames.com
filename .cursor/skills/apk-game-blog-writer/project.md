@@ -35,7 +35,7 @@ Newest `updated` dates first. Infer each page's angle from section order and ope
 - `content/games/786bet-game.mdx` → `/786bet-game`
 - `content/games/okpkr-game.mdx` → `/okpkr-game`
 - `content/games/5555bet-game.mdx` → `/5555bet-game` (display name **8555bet Game**)
-- `content/games/done999-game.mdx` → `/done999-game`
+- `content/games/done999-game.mdx` → `/done999-game` (display name **RM666 Game**)
 - `content/games/3rr-game.mdx` → `/3rr-game` (display name **HE786 Game**)
 - `content/games/xx555-game.mdx` → `/xx555-game`
 - `content/games/bro444-game.mdx` → `/bro444-game`
