@@ -397,6 +397,8 @@ function HowToDownload() {
 
 function PopularKeywords() {
   const keywords = [
+    "92blaze game",
+    "pkr365 game",
     "9999 win game download",
     "999v apk pakistan",
     "8555bet game",

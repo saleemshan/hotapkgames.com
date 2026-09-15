@@ -26,6 +26,8 @@ Newest `updated` dates first. Infer each page's angle from section order and ope
 
 **Games** (newest `updated` first — treat older pages as template-fingerprint risk)
 
+- `content/games/pkr365-game.mdx` → `/pkr365-game`
+- `content/games/92blaze-game.mdx` → `/92blaze-game`
 - `content/games/y999-game.mdx` → `/y999-game`
 - `content/games/88ka-game.mdx` → `/88ka-game`
 - `content/games/p999-game.mdx` → `/p999-game` (display name **999V Game**)
