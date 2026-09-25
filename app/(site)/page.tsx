@@ -402,7 +402,7 @@ function PopularKeywords() {
     "9999 win game download",
     "999v apk pakistan",
     "8555bet game",
-    "okpkr wingo",
+    "588pkr game download",
     "rm666 game",
     "color prediction Pakistan",
     "earning app JazzCash",
