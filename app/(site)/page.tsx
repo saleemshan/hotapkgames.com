@@ -403,7 +403,7 @@ function PopularKeywords() {
     "999v apk pakistan",
     "8555bet game",
     "588pkr game download",
-    "rm666 game",
+    "888pkr game",
     "color prediction Pakistan",
     "earning app JazzCash",
     "casino game APK 2026",
