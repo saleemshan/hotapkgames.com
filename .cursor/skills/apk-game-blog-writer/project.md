@@ -29,7 +29,7 @@ Newest `updated` dates first. Infer each page's angle from section order and ope
 - `content/games/pkr365-game.mdx` → `/pkr365-game`
 - `content/games/92blaze-game.mdx` → `/92blaze-game`
 - `content/games/y999-game.mdx` → `/y999-game`
-- `content/games/88ka-game.mdx` → `/88ka-game`
+- `content/games/88ka-game.mdx` → `/88ka-game` (display name **999q Game**)
 - `content/games/p999-game.mdx` → `/p999-game` (display name **999V Game**)
 - `content/games/pak14-game.mdx` → `/pak14-game`
 - `content/games/s98-game.mdx` → `/s98-game` (display name **666pk Game**)
