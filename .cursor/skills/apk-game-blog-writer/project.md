@@ -26,6 +26,13 @@ Newest `updated` dates first. Infer each page's angle from section order and ope
 
 **Games** (newest `updated` first — treat older pages as template-fingerprint risk)
 
+- `content/games/h555-game.mdx` → `/h555-game`
+- `content/games/done999-game.mdx` → `/done999-game` (display name **Done999 Game**; slug kept)
+- `content/games/pk1947-game.mdx` → `/pk1947-game`
+- `content/games/k666-game.mdx` → `/k666-game`
+- `content/games/x666-game.mdx` → `/x666-game`
+- `content/games/win786-game.mdx` → `/win786-game` (not 786BET)
+- `content/games/s1gem-game.mdx` → `/s1gem-game` (display name **S1 Gem**; publisher prints **S1 Game**)
 - `content/games/pkr365-game.mdx` → `/pkr365-game`
 - `content/games/92blaze-game.mdx` → `/92blaze-game`
 - `content/games/y999-game.mdx` → `/y999-game`
@@ -38,7 +45,6 @@ Newest `updated` dates first. Infer each page's angle from section order and ope
 - `content/games/786bet-game.mdx` → `/786bet-game`
 - `content/games/okpkr-game.mdx` → `/okpkr-game` (display name **588Pkr Game**)
 - `content/games/5555bet-game.mdx` → `/5555bet-game` (display name **8555bet Game**)
-- `content/games/done999-game.mdx` → `/done999-game` (display name **888Pkr Game**)
 - `content/games/3rr-game.mdx` → `/3rr-game` (display name **HE786 Game**)
 - `content/games/xx555-game.mdx` → `/xx555-game` (display name **777dx Game**)
 - `content/games/bro444-game.mdx` → `/bro444-game`

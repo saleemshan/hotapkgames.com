@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
+  <defs>
+    <radialGradient id="k666-game-bg" cx="50%" cy="42%" r="70%">
+      <stop offset="0%" stop-color="#4a0510"/>
+      <stop offset="100%" stop-color="#1a0206"/>
+    </radialGradient>
+    <linearGradient id="k666-game-acc" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fca5a5"/>
+      <stop offset="100%" stop-color="#ef4444"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="96" fill="url(#k666-game-bg)"/>
+  <rect x="14" y="14" width="484" height="484" rx="84" fill="none" stroke="url(#k666-game-acc)" stroke-width="6"/>
+  <circle cx="256" cy="256" r="198" fill="none" stroke="#fca5a5" stroke-width="1.5" opacity="0.28"/>
+  <text x="256" y="292" font-family="Arial Black, Arial, sans-serif" font-size="118" font-weight="900" text-anchor="middle" fill="url(#k666-game-acc)" letter-spacing="-2">K666</text>
+  <text x="256" y="348" font-family="Arial, sans-serif" font-size="22" font-weight="700" text-anchor="middle" fill="#fecaca" letter-spacing="5">GAME APK</text>
+</svg>
